@@ -1,0 +1,86 @@
+<project name="CouchBase_MySQL_Test" basedir="." default="build">
+
+    <property name="src.dir"     value="src"/>
+    <property name="build.dir"   value="build"/>
+    <property name="lib.dir"     value="lib"/>
+    <property name="classes.dir"     value="${build.dir}/classes"/>
+    <property name="config.dir" value="config" />
+
+    <path id="common-classpath">
+        <fileset dir="${lib.dir}/common">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="."/>
+    </path>
+
+    <path id="mysql-classpath">
+        <fileset dir="${lib.dir}/mysql">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="."/>
+    </path>
+
+    <path id="mysql-classpath">
+        <fileset dir="${lib.dir}/mysql">
+            <include name="*.jar"/>
+        </fileset>
+      <pathelement path="${build.dir}"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="build-common">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/common/*.java" includeantruntime="false" debug="true">
+            <classpath refid="common-classpath"/>
+        </javac>
+    </target>
+
+    <target name="build-dataTransfer" >
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/data/*.java" includeantruntime="false" debug="true">      
+            <classpath refid="common-classpath" />
+            <classpath refid="mysql-classpath" />
+        </javac>
+    </target>
+
+    <target name="build-mysql" depends="build-common">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/mysql/*.java" includeantruntime="false">
+            <classpath refid="common-classpath"/>
+            <classpath refid="mysql-classpath"/>
+        </javac>
+    </target>
+
+    <target name="build-accumulo" depends="build-common">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/accumulo/*.java" includeantruntime="false">
+            <classpath refid="common-classpath"/>
+        </javac>
+    </target>
+
+    <target name="build-testHarness" depends="build-accumulo, build-mysql">
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/run/*.java" includeantruntime="false"/>        
+    </target>
+
+    <target name="build" depends="build-testHarness,build-dataTransfer" />
+
+    <target name="run" depends="build-testHarness">
+        <java classname="com.harness.run.TestRunner">
+            <arg value="${type}" />
+            <arg value="${config}"/>
+            <classpath path="${classes.dir}" />
+            <classpath refid="common-classpath"/>
+        </java>
+    </target>
+
+    <target name="run-dataTransfer" depends="build-dataTransfer">
+        <java classname="com.harness.data.MySqlToCouchBase">
+            <arg value="${config}"/>
+            <classpath path="${classes.dir}" />
+            <classpath refid="common-classpath" />
+            <classpath refid="mysql-classpath" />
+        </java>
+    </target>    
+</project>
