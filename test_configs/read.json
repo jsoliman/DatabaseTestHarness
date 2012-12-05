@@ -1,0 +1,15 @@
+{
+    "iterations": 5,
+    "readsPerSecond": 1,
+    "writesPerSecond": 0,
+    "outputFilename": "read1.log",
+    "workloadType" : "read",
+    "zookeeperInstance" : "instance",
+    "zooServers" : "localhost",
+    "accumuloUser" : "root",
+    "accumuloPassword" : "secret",
+    "table" : "quizzes",
+    "authorization" : "admin",
+    "rangeStart" : "",
+    "rangeEnd" : ""
+}
