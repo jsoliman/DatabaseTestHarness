@@ -20,6 +20,27 @@
         <pathelement path="."/>
     </path>
 
+    <path id="hadoop-classpath">
+        <fileset dir="${lib.dir}/hadoop/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${lib.dir}/hadoop/hadoop-0.20.2-core.jar"/>
+        <pathelement path="${lib.dir}/hadoop/conf"/>
+    </path>
+
+    <path id="zookeeper-classpath">
+        <fileset dir="${lib.dir}/zookeeper/lib">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement location="${lib.dir}/zookeeper/zookeeper-3.4.3.jar"/>
+    </path>
+
+    <path id="accumulo-classpath">
+        <fileset dir="${lib.dir}/accumulo/lib">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
     <path id="mysql-classpath">
         <fileset dir="${lib.dir}/mysql">
             <include name="*.jar"/>
@@ -35,6 +56,9 @@
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/common/*.java" includeantruntime="false" debug="true">
             <classpath refid="common-classpath"/>
+        <classpath refid="accumulo-classpath"/>
+        <classpath refid="hadoop-classpath"/>
+        <classpath refid="zookeeper-classpath"/>
         </javac>
     </target>
 
@@ -56,7 +80,10 @@
     <target name="build-accumulo" depends="build-common">
         <mkdir dir="${classes.dir}"/>
         <javac srcdir="${src.dir}" destdir="${classes.dir}" includes="com/harness/accumulo/*.java" includeantruntime="false">
-            <classpath refid="common-classpath"/>
+        <classpath refid="common-classpath"/>
+        <classpath refid="accumulo-classpath"/>
+        <classpath refid="hadoop-classpath"/>
+        <classpath refid="zookeeper-classpath"/>
         </javac>
     </target>
 
@@ -70,7 +97,7 @@
         <java classname="com.harness.run.TestRunner">
             <arg value="${type}" />
             <arg value="${config}"/>
-            <classpath path="${classes.dir}" />
+            <classpath path="${classes.dir}"/>
             <classpath refid="common-classpath"/>
         </java>
     </target>
