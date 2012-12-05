@@ -94,7 +94,7 @@
     <target name="build" depends="build-testHarness,build-dataTransfer" />
 
     <target name="run" depends="build-testHarness">
-        <java classname="com.harness.run.TestRunner">
+        <java classname="com.harness.run.Run">
             <arg value="${type}" />
             <arg value="${config}"/>
             <classpath path="${classes.dir}"/>

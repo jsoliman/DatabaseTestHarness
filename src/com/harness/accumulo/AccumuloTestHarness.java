@@ -10,6 +10,7 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
+import com.harness.accumulo.ReadThread;
 import com.harness.common.TestHarness;
 
 public class AccumuloTestHarness extends TestHarness {
@@ -60,6 +61,7 @@ public class AccumuloTestHarness extends TestHarness {
 	        for (int iteration = 0; iteration < totalIterations; iteration++) {
 	        	if (workloadType.equals("read")) {
 	        		// Spawn read thread
+	        		new ReadThread(countDownLatch, callTimes, iteration, config.getZooKeeperInstance(), config.getZooKeeperInstance(), config.getAccumuloUser(), config.getAccumuloPassword(), config.getTable(), config.getAuthorization(), config.getRangeStart(), config.getRangeEnd());
 	        	}
 	        	else if (workloadType.equals("write")) {
 	        		// Spawn write thread

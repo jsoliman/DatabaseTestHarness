@@ -56,7 +56,7 @@ public class ReadThread implements Runnable {
     public void run() {
         long startTime = 0;
         long endTime = 0;
-        
+        return;
         Client client = null;
         try {
             client = new Client(this.instanceName, this.zooServers, this.userName, this.password);
