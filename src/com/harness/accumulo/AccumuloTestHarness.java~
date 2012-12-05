@@ -63,7 +63,7 @@ public class AccumuloTestHarness extends TestHarness {
 
 	    int totalIterations = config.getIterations();
 	    int messagesPerIteration = config.getMessagesPerIteration();
-
+System.out.println("Total" + totalIterations + " " + messagesPerIteration);
 	    String workloadType = config.getWorkloadType();
 
 		CountDownLatch countDownLatch = new CountDownLatch (totalIterations * messagesPerIteration);

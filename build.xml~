@@ -100,8 +100,6 @@
             <classpath path="${classes.dir}"/>
             <classpath refid="common-classpath"/>
         <classpath refid="accumulo-classpath"/>
-        <classpath refid="hadoop-classpath"/>
-        <classpath refid="zookeeper-classpath"/>
         </java>
     </target>
 

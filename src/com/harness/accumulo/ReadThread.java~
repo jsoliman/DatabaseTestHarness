@@ -93,15 +93,15 @@ public class ReadThread implements Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }*/
-/*System.out.println("Sleeping");
+System.out.println("Sleeping");
 try {
 Thread.sleep(10000);
 } catch (Exception ex) {
 ex.printStackTrace();
 }
 System.out.println("Awake");
-countDownLatch.countDown();*/
-Client client = null;
+countDownLatch.countDown();
+/*Client client = null;
         try {
             client = new Client("instance", "localhost", "s22", "p");
         } catch (AccumuloException ex) {
@@ -127,7 +127,7 @@ System.out.println("Is there something? " + iterator.hasNext());
         }
 
         map.put("Read " + id, endTime - startTime);
-        countDownLatch.countDown();
+        countDownLatch.countDown();*/
     }
 
 }
